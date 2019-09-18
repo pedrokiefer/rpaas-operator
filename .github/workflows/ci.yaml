@@ -1,0 +1,33 @@
+name: Continuos Integration
+
+on:
+- push
+
+jobs:
+  testing:
+    name: Testing with Go v${{ matrix.go }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        go:
+        - '1.12.x'
+
+    steps:
+    - name: Checkout source code
+      uses: actions/checkout@master
+      with:
+        fetch-depth: 1
+
+    - name: Installing Go
+      uses: actions/setup-go@v1.1.1
+      with:
+        go-version: ${{ matrix.go }}
+
+    - name: Run unit tests
+      run: make test
+      env:
+        GO111MODULE: 'on'
+        GOPROXY: 'https://proxy.golang.org'
+
+    - name: Lint
+      run: PATH="${PATH}:$(go env GOPATH)/bin" make lint
