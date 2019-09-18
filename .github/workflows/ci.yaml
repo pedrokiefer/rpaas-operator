@@ -31,3 +31,17 @@ jobs:
 
     - name: Lint
       run: PATH="${PATH}:$(go env GOPATH)/bin" make lint
+
+    - name: Integration
+      run: |
+        sudo curl -L https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64 -o /usr/local/bin/jq
+        sudo chmod +x /usr/local/bin/jq
+        jq --version
+
+        sudo curl -L https://github.com/operator-framework/operator-sdk/releases/download/v0.10.0/operator-sdk-v0.10.0-x86_64-linux-gnu -o /usr/local/bin/operator-sdk
+        sudo chmod +x /usr/local/bin/operator-sdk
+        operator-sdk version
+
+        docker version
+
+        make test/integration

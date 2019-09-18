@@ -14,7 +14,7 @@ GO_LDFLAGS ?= -X=github.com/tsuru/rpaas-operator/version.Version=$(RPAAS_OPERATO
 test/all: test test/integration
 
 test:
-	go test -v ./...
+	go test -mod=vendor -v ./...
 
 test/integration:
 	./scripts/localkube-integration.sh

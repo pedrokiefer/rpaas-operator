@@ -20,7 +20,7 @@ download_operator_sdk() {
 
   curl -sLo ${operator_sdk_bin} "https://github.com/operator-framework/operator-sdk/releases/download/${version}/operator-sdk-${version}-x86_64-${os}"
   chmod +x ${operator_sdk_bin}
-  echo -n ${operator_sdk_bin}  
+  echo -n ${operator_sdk_bin}
 }
 
 download_kubectl() {
@@ -259,7 +259,7 @@ sleep 10s
 
 RPAAS_API_ADDRESS="http://127.0.0.1:${local_rpaas_api_port}" \
 RPAAS_OPERATOR_INTEGRATION=1                                 \
-go test -test.v ./...
+go test -mod=vendor -test.v ./...
 
 kill ${kubectl_port_forward_pid}
 
